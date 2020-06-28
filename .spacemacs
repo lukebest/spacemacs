@@ -40,63 +40,58 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      ;; spell-checking
      (syntax-checking :variables
-                      syntax-checking-use-original-bitmaps t)
+                      syntax-checking-enable-by-default nil
+                      syntax-checking-enable-tooltips nil)
      (auto-completion :variables
-                      ;; auto-completion-complete-with-key-sequence 'jk
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t
-                      auto-completion-enable-sort-by-usage t)
-     (helm :variables
-           helm-enable-auto-resize t
-           helm-no-header t
-           helm-use-fuzzy 'source)
-     ;; ivy
+                      auto-completion-enable-sort-by-usage t
+                      :disabled-for org)
+     (ivy :variables
+          ivy-use-virtual-buffers t
+          enable-recursive-minibuffers t)
+     better-defaults
 
      ;; chinese
 
      helpful
      ibuffer
-     (org :variables
-          org-projectile-file "TODOs.org"
-          org-enable-github-support t)
+     org
      ;; semantic
-     smex
+     ;; smex
 
      ;; neotree
      treemacs
 
      ;; parinfer
 
-     autohotkey
-     shell-scripts
+     ;; autohotkey
+     ;; shell-scripts
      perl5
-     python
-     emacs-lisp
-     markdown
+     ;; python
+     ;; emacs-lisp
+     ;; markdown
 
      git
-     ;; version-control
+     version-control
 
-     (gtags :variables
-            gtags-enable-by-default t)
+     ;; (gtags :variables
+            ;; gtags-enable-by-default t
+            ;; :disabled-for emacs-lisp markdown python)
 
      ;; lsp
-     (imenu-list :variables
-                 imenu-list-focus-after-activation t
-                 imenu-list-auto-resize nil
-                 imenu-list-size 0.2)
      (ranger :variables
              ranger-show-preview t
              ranger-cleanup-on-disable t
              ranger-cleanup-eagerly t
              ranger-show-dotfiles t)
      (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-shell 'multi-term
+            shell-default-position 'right)
      ;; tmux
-     xclipboard
+     ;; xclipboard
 
-     ;; colors
+     colors
      vinegar
      )
 
@@ -109,13 +104,14 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(verilog-mode
                                       veri-kompass
+                                      hydra
                                       centaur-tabs)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(cl)
+   dotspacemacs-excluded-packages '(vterm)
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -178,7 +174,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
    ;; (default t)
-   dotspacemacs-verify-spacelpa-archives t
+   dotspacemacs-verify-spacelpa-archives nil
 
    ;; If non-nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
@@ -197,7 +193,7 @@ It should only modify the values of Spacemacs settings."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style 'hybrid
 
    ;; If non-nil show the version string in the Spacemacs buffer. It will
    ;; appear as (spacemacs version)@(emacs version)
@@ -210,7 +206,7 @@ It should only modify the values of Spacemacs settings."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'random
+   dotspacemacs-startup-banner 'official
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
@@ -243,8 +239,7 @@ It should only modify the values of Spacemacs settings."
                          monokai
                          dracula
                          gruvbox
-                         spacemacs-dark
-                         spacemacs-light)
+                         spacemacs-dark)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -388,7 +383,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-show-transient-state-color-guide t
 
    ;; If non-nil unicode symbols are displayed in the mode line.
-   ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
+   ;; If you use Emacs as a daemod wants unicode characters only in GUI set
    ;; the value to quoted `display-graphic-p'. (default t)
    dotspacemacs-mode-line-unicode-symbols t
 
@@ -437,7 +432,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
-   dotspacemacs-enable-server nil
+   dotspacemacs-enable-server t
 
    ;; Set the emacs server socket location.
    ;; If nil, uses whatever the Emacs default is, otherwise a directory path
@@ -483,7 +478,7 @@ It should only modify the values of Spacemacs settings."
    ;; `trailing' to delete only the whitespace at end of lines, `changed' to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'changed
 
    ;; If non nil activate `clean-aindent-mode' which tries to correct
    ;; virtual indentation of simple modes. This can interfer with mode specific
@@ -527,8 +522,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
       '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
         ("org-cn"   . "http://elpa.emacs-china.org/org/")
         ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
-(setq-default git-magit-status-fullscreen t)
-(setq-default git-enable-magit-svn-plugin t)
 )
 
 (defun dotspacemacs/user-load ()
@@ -545,38 +538,70 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (menu-bar-mode t)
-  (setq-default cursor-type 'bar)
   (setq make-backup-files nil)
   (setq auto-save-default nil)
   (delete-selection-mode t)
-  (centaur-tabs-mode t)
   (popwin-mode t)
-  (setq ring-bell-function 'ignore)
+  (indent-guide-mode t)
+  (centaur-tabs-mode t)
   (global-evil-matchit-mode t)
   (global-git-commit-mode t)
   (global-company-mode t)
   (global-auto-revert-mode t)
+  (global-hungry-delete-mode t)
+
+  ; projectile
+  (projectile-global-mode)
+  (setq projectile-globally-ignored-directories (append '(".svn") projectile-globally-ignored-directories))
+
+  ;; magit
+  (setq-default git-magit-status-fullscreen t)
+  (setq-default git-enable-magit-svn-plugin t)
+
+  ;; code edit
+  (setq-default tab-width 4)
+  (setq-default indent-tabs-mode nil)
+  (setq-default fill-column 120)
+  (setq-default abbrev-mode t)
+
+  (setq make-backup-files nil)
+  (setq auto-save-default nil)
+  (setq ring-bell-function 'ignore)
   ;; (setq-default display-fill-column-indicator-mode t)
   ;; (setq highlight-indentation-current-column-mode)
   (setq frame-title-format "%b [%I] %f GNU/Emacs")
-  (setq semantic-stickyfunc-mode nil)
   (setq mouse-yank-at-point t)
   (setq kill-ring-max 200)
-  (setq-default tab-width 4)
-  (setq-default indent-tabs-mode nil)
   (setq select-enable-clipboard t)
   (setq require-final-newline t)
-  (setq-default semantic-idle-scheduler-idle-time 432000)
-  (setq-default fill-column 120)
+
+  ;; hydra
+  (defhydra hydra-zoom (global-map "<f2>")
+    "zoom"
+    ("g" text-scale-increase "in")
+    ("l" text-scale-decrease "out"))
+  ;; treemacs
+
+  ;; centaur-tabs
+  (setq centaur-tabs-set-modified-marker t
+        centaur-tabs-modified-marker "*"
+        centaur-tabs-set-bar 'under
+        x-underline-at-descent-line t)
+  (centaur-tabs-headline-match)
+  ;; (centaur-tabs-enable-buffer-reordering)
+  ;; (setq centaur-tabs-adjust-buffer-order t)
   (global-set-key (kbd "C-<prior>") 'centaur-tabs-backward)
   (global-set-key (kbd "C-<next>") 'centaur-tabs-forward)
-  (setq centaur-tabs-set-modified-marker t)
-  (setq centaur-tabs-modified-marker "*")
+
+  (setq uniquify-separator "/")
+  (setq uniquify-buffer-name-style 'forward)
+
   (setq tags-revert-without-query t)
   (setq large-file-warning-threshold nil)
   (setq tags-case-fold-search nil)
-
-  ;; org config
+  (setq dired-dwim-target t)
+  (setq projectile-enable-caching t)
+    ;; org config
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
@@ -599,16 +624,11 @@ before packages are loaded."
                 ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
                 ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
                 ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
-  (setq-default abbrev-mode t)
   (define-abbrev-table 'global-abbrev-table '(
                                               ("1gh" "l00549596")
                                               ("1ml" "liuying127@hisilicon.com")
                                               ))
-  (put 'dired-find-alternate-file 'disabled nil)
-  (with-eval-after-load 'dired
-    (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
-  (setq dired-dwim-target t)
-  )
+    )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -636,7 +656,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(ox-gfm helpful elisp-refs dash-functional loop vterm rainbow-mode ggtags monokai-theme multiple-cursors imenu-list floobits unfill typo stickyfunc-enhance srefactor smex smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mwim magit-gitflow magit-popup ibuffer-projectile htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy evil-magit magit git-commit with-editor transient disaster diff-hl company-statistics company-c-headers company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help spinner evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu evil undo-tree adaptive-wrap window-numbering ido-vertical-mode quelpa package-build ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smartparens restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-unimpaired evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-escape goto-chg eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+   '(verilog-mode vterm rainbow-mode ggtags monokai-theme multiple-cursors imenu-list floobits unfill typo stickyfunc-enhance srefactor smex smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mwim magit-gitflow magit-popup ibuffer-projectile htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy evil-magit magit git-commit with-editor transient disaster diff-hl company-statistics company-c-headers company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help spinner evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu evil undo-tree adaptive-wrap window-numbering ido-vertical-mode quelpa package-build ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smartparens restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-unimpaired evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-escape goto-chg eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
