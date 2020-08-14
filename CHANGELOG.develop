@@ -987,6 +987,14 @@ Other:
     - ~SPC x i c~ change symbol style to =lowerCamelCase=
     - ~SPC x i C~ change symbol style to =UpperCamelCase=
     (thanks to Ric da Silva)
+  - Improved UX on link opening key bindings:
+    - Added ~SPC x A~ for =link-hint-open-all-links=
+    - Added ~SPC x m~ for =link-hint-open-multiple-links=
+    - Added ~SPC x Y~ for =link-hint-copy-link=
+    - Changed ~SPC x o~ to =link-hint-open-link-at-point=
+    - Changed ~SPC x O~ to =link-hint-open-link=
+    - Changed ~SPC x y~ to =link-hint-copy-link-at-point=
+    (thanks to Codruț Constantin Gușoi)
   - New transpose sentences and transpose paragraphs keybindings
     (thanks to Daniel Gomez):
     - ~SPC x t p~ for =transpose-paragraphs=
@@ -3122,6 +3130,7 @@ Other:
   (thanks to Grant Shangreaux)
 - Added/Updated instructions on external dependencies, =cargo-edit=,
   =cargo-audit=, =rustfmt=, and =clippy= (thanks to Lucius Hu)
+- Added support for Rusty Object Notation (RON) (thanks to Daniel Hutzley)
 **** Sailfish-Developer
 - Key bindings:
   - Added =sailfish-scratchbox= key bindings (thanks to Victor Polevoy):
@@ -3238,6 +3247,8 @@ Other:
   - ~SPC m )~ to add reaction (thanks to Swaroop C H)
   - ~SPC m (~ to remove reaction (thanks to Swaroop C H)
   - ~SPC m t~ to open message thread (thanks to Swaroop C H)
+  - ~SPC m T~ to open all threads in workspace (thanks to wang-d)
+  - ~SPC m u~ to open all unreads in workspace (thanks to wang-d)
 - New layer variable =slack-spacemacs-layout-name= to customize the name of
   the custom layer for Slack buffers (thanks to Benjamin Reynolds)
 - New layer variable =slack-spacemacs-layout-binding= to customize the key used
